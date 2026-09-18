@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>TheShortStory</title>
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <aside class="sidebar">
+
+            <h1>TheShortStory</h1>
+
+            <button id = "newStory" class="sidebar-button">New Story</button>
+            <button id ="myStories" class="sidebar-button">My Stories</button>
+            <div id="storiesContainer"></div>
+            <button class="sidebar-button">Settings</button>
+            <div id="currentUsername"></div>
+            <button id = "logoutButton" class="sidebar-button">Logout</button>
+        </aside>
+
+
+        <main class="writing-area">
+        
+            
+            <select id="storyVisibility">
+                <option value="PRIVATE">Private</option>
+                <option value="PUBLIC">Public</option>
+            </select>
+            <input type="text" id="storyTitle" placeholder="Enter your story title here..." />
+            <button id = "saveButton" class="save-button">Save</button>
+            <textarea id = "storyContent"
+                placeholder="Start writing your story..."
+            ></textarea>
+
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
