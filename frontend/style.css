@@ -109,3 +109,102 @@ textarea {
 #logoutButton {
     margin-top: 30px;
 }
+
+#publicStoriesContainer {
+    width: 700px;
+    max-width: 90%;
+    margin: 30px auto;
+}
+
+.story-card {
+    background-color: white;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    padding: 20px;
+    margin-bottom: 20px;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.story-card-title {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.story-card-preview {
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.read-more-button {
+    padding: 8px 14px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.gender-options {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.gender-options label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+
+    font-size: 14px;
+}
+
+/* Additional styles for profile.html */
+
+.public-profile-layout {
+    display: flex;
+
+    width: 1100px;
+    max-width: 95%;
+
+    margin: 30px auto;
+
+    gap: 25px;
+}
+
+.profile-sidebar {
+    width: 28%;
+
+    background-color: white;
+
+    border: 1px solid #dddddd;
+    border-radius: 10px;
+
+    padding: 25px;
+
+    box-sizing: border-box;
+
+    align-self: flex-start;
+}
+
+.profile-stories {
+    width: 72%;
+}
+
+.profile-info p {
+    margin-bottom: 18px;
+}
+
+.profile-info strong {
+    display: block;
+    margin-bottom: 4px;
+}
+
+#followButton {
+    width: 100%;
+
+    padding: 10px;
+
+    margin-top: 15px;
+
+    cursor: pointer;
+}

@@ -85,6 +85,33 @@ public class StoryController {
         return ResponseEntity.status(HttpStatus.OK).body(story);
     }
 
+    @GetMapping("/public")
+    public ResponseEntity<List<StorySummaryResponse>> getPublicStories(@RequestParam(defaultValue = "0") int page,@RequestParam(defaultValue = "20") int size){
+        List<StorySummaryResponse> publicStories = storyService.getPublicStories(page,size);
+        return ResponseEntity.status(HttpStatus.OK).body(publicStories);
+    }
+
+    @GetMapping("/public/{id}")
+    public ResponseEntity<Story> getPublicStory(@PathVariable long id){
+        Story story = storyService.getPublicStory(id);
+        if(story == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(story);
+    }
+
+    @GetMapping("public/user/{userId")
+    public ResponseEntity<List<StorySummaryResponse>> getPublicStoriesByUser(@PathVariable long userId,
+                                                                             @RequestParam(defaultValue = "0") int page,
+                                                                             @RequestParam(defaultValue = "20") int size){
+
+        List<StorySummaryResponse> stories = storyService.getPublicStoryByUser(userId,page,size);
+        if(stories == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(stories);
+
+    }
     private Long getUserIdFromAuthorizationHeader(
             String authorizationHeader) {
 

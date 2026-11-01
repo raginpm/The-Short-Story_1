@@ -1,5 +1,7 @@
 package com.shortstory.repository;
 
+import com.shortstory.dto.UpdateProfileRequest;
+import com.shortstory.dto.UserProfileResponse;
 import com.shortstory.model.Story;
 import com.shortstory.model.User;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -91,5 +93,35 @@ public class UserRepository {
             return null;
         }
     }
+
+    public UserProfileResponse getUserProfile(long userId){
+        String sql =
+                "UPDATE users " +
+                        "SET nationality = ?, hometown = ?, gender = ? " +
+                        "WHERE user_id = ?";
+
+        return jdbcTemplate.queryForObject(sql,(resultSet,rawNum)->new UserProfileResponse(
+                resultSet.getLong("user_id"),
+                resultSet.getString("username"),
+                resultSet.getString("nationality"),
+                resultSet.getString("hometown"),
+                resultSet.getString("gender")
+        ),userId);
+    }
+
+    public int updateProfile(long userId, UpdateProfileRequest updateProfileRequest){
+
+        String sql =  "UPDATE users " +
+                "SET nationality = ?, hometown = ?, gender = ? " +
+                "WHERE user_id = ?";
+
+        return jdbcTemplate.update(sql,
+                updateProfileRequest.getNationality(),
+                updateProfileRequest.getHometown(),
+                updateProfileRequest.getGender(),
+                userId
+        );
+    }
+
 }
 

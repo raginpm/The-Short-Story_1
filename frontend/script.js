@@ -5,6 +5,11 @@ const newStoryButton = document.querySelector("#newStory");
 const myStoriesButton = document.querySelector("#myStories");
 const storiesContainer = document.querySelector("#storiesContainer");
 const logoutButton = document.querySelector("#logoutButton");
+const publicStoriesButton = document.querySelector("#publicStories");
+const editProfileButton = document.querySelector("#editProfilrButton");
+
+//const storyVisibility = document.querySelector("#storyVisibility");
+
 //const userId = localStorage.getItem("userId");
 
 const token = localStorage.getItem("token");
@@ -60,15 +65,24 @@ if (savedTitle) {
     storyTitle.value = savedTitle;
 }
 
+editProfileButton.addEventListener("click", function() {
+    window.location.href = "edit-profile.html";
+});
+
 saveButton.addEventListener("click", function() {
 
     const story = storyContent.value;
     const title = storyTitle.value;
+     const selectedVisibility = document.querySelector(
+        'input[name="visibility"]:checked'
+    ).value;
+
 
     const storyObject = {
         //userId: userId,
         title: title,
-        content: story
+        content: story,
+        visibility : selectedVisibility
     };
 
     if (currentStoryId === null) {
@@ -231,6 +245,9 @@ function loadStory(storyId){
         currentStoryId = story.id;
         storyTitle.value = story.title;
         storyContent.value = story.content;
+        document.querySelector('input[name="visibility"][value="' + story.visibility + '"]').checked = true;
+        
+        
     }).catch(function (error) {
         console.error(error);
         alert("Unable to load story");
@@ -244,6 +261,9 @@ newStoryButton.addEventListener("click", function() {
     for (let j = 0; j < storyItems.length; j++) {
         storyItems[j].classList.remove("active-story");
     }
+    document.querySelector(
+        'input[name="visibility"][value="PRIVATE"]'
+    ).checked = true;
     //storiesContainer.innerHTML = "";
 });
 
@@ -253,3 +273,7 @@ function handleUnauthorized() {
 
     window.location.replace("login.html");
 }
+
+publicStoriesButton.addEventListener("click", function() {
+    window.open("public-stories.html", "_blank");
+});

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="auth-container">
+
+        <h2>Edit Profile</h2>
+
+        <input
+            type="text"
+            id="nationality"
+            placeholder="Nationality"
+        >
+
+        <input
+            type="text"
+            id="hometown"
+            placeholder="From"
+        >
+
+        <div class="gender-options">
+
+            <label>
+                <input
+                    type="radio"
+                    name="gender"
+                    value="MALE"
+                >
+                Male
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="gender"
+                    value="FEMALE"
+                >
+                Female
+            </label>
+
+            <label>
+                <input
+                    type="radio"
+                    name="gender"
+                    value="OTHER"
+                >
+                Other
+            </label>
+
+        </div>
+
+        <button id="saveProfileButton">
+            Save Profile
+        </button>
+
+        <button id="skipProfileButton">
+            Skip
+        </button>
+
+    </div>
+
+    <script src="edit-profile.js"></script>
+
+</body>
+</html>

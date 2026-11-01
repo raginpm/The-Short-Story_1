@@ -23,16 +23,39 @@
             <button class="sidebar-button">Settings</button>
             <div id="currentUsername"></div>
             <button id = "logoutButton" class="sidebar-button">Logout</button>
+            <button id="publicStories" class="sidebar-button">
+                Public Stories
+            </button>
+            <button id="editProfilrButton" class="sidebar-button">
+                Edit Profile
+            </button>
         </aside>
 
 
         <main class="writing-area">
         
             
-            <select id="storyVisibility">
-                <option value="PRIVATE">Private</option>
-                <option value="PUBLIC">Public</option>
-            </select>
+            <div class="visibility-options">
+                <label>
+                    <input
+                        type="radio"
+                        name="visibility"
+                        value="PRIVATE"
+                        checked
+                    >
+                    Private
+                </label>
+
+                <label>
+                    <input
+                        type="radio"
+                        name="visibility"
+                        value="PUBLIC"
+                    >
+                    Public
+                </label>
+
+            </div>
             <input type="text" id="storyTitle" placeholder="Enter your story title here..." />
             <button id = "saveButton" class="save-button">Save</button>
             <textarea id = "storyContent"
