@@ -96,7 +96,7 @@ public class StoryRepository {
                 "SELECT s.story_id, s.title, " +
                         "LEFT(s.content, 50) AS preview, " +
                         "s.visibility, " +
-                        "u.username " +
+                        "u.user_id, u.username " +
                         "FROM story s " +
                         "JOIN users u ON s.user_id = u.user_id " +
                         "WHERE s.user_id = ? " +
@@ -109,6 +109,7 @@ public class StoryRepository {
                         rs.getString("title"),
                         rs.getString("preview"),
                         rs.getString("visibility"),
+                        rs.getLong("user_id"),
                         rs.getString("username")
                 ),
                 userId
@@ -121,7 +122,7 @@ public class StoryRepository {
         String sql = "SELECT s.story_id, s.title, " +
                 "LEFT(s.content, 50) AS preview, " +
                 "s.visibility, " +
-                "u.username " +
+                "u.user_id, u.username " +
                 "FROM story s " +
                 "JOIN users u ON s.user_id = u.user_id " +
                 "WHERE s.visibility = 'PUBLIC' " +
@@ -134,6 +135,7 @@ public class StoryRepository {
                 resultSet.getString("title"),
                 resultSet.getString("preview"),
                 resultSet.getString("visibility"),
+                resultSet.getLong("user_id"),
                 resultSet.getString("username")
         ),size,offset   );
     }
@@ -169,7 +171,7 @@ public class StoryRepository {
                         u.user_id,
                         u.username
                     FROM story s
-                    JOIN user_account u
+                    JOIN users u
                         ON s.user_id = u.user_id
                     WHERE s.user_id = ?
                       AND s.visibility = 'PUBLIC'

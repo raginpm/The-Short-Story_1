@@ -95,9 +95,10 @@ public class UserRepository {
     }
 
     public UserProfileResponse getUserProfile(long userId){
+
         String sql =
-                "UPDATE users " +
-                        "SET nationality = ?, hometown = ?, gender = ? " +
+                "SELECT user_id, username, nationality, hometown, gender " +
+                        "FROM users " +
                         "WHERE user_id = ?";
 
         return jdbcTemplate.queryForObject(sql,(resultSet,rawNum)->new UserProfileResponse(

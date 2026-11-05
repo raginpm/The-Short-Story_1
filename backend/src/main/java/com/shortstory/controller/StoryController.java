@@ -100,7 +100,7 @@ public class StoryController {
         return ResponseEntity.status(HttpStatus.OK).body(story);
     }
 
-    @GetMapping("public/user/{userId")
+    @GetMapping("public/user/{userId}")
     public ResponseEntity<List<StorySummaryResponse>> getPublicStoriesByUser(@PathVariable long userId,
                                                                              @RequestParam(defaultValue = "0") int page,
                                                                              @RequestParam(defaultValue = "20") int size){
@@ -110,8 +110,8 @@ public class StoryController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
         return ResponseEntity.status(HttpStatus.OK).body(stories);
-
     }
+
     private Long getUserIdFromAuthorizationHeader(
             String authorizationHeader) {
 

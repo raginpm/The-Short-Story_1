@@ -63,6 +63,10 @@ function showPublicStories(stories) {
         writerName.classList.add("story-card-writer");
         writerName.textContent = "By: " + story.username;
     
+        writerName.addEventListener("click", function() {
+            window.location.href = "profile.html?userId=" + story.userId;
+        });
+        
         storyCard.classList.add("story-card");
         const storyTitle = document.createElement("h2");
         storyTitle.classList.add("story-card-title");
@@ -130,3 +134,4 @@ function openPublicStory(storyId,storyCard) {
         alert("Unable to load story");
     });
 }
+
