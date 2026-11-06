@@ -208,3 +208,68 @@ textarea {
 
     cursor: pointer;
 }
+.public-review-card{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-top: 15px;
+    padding-top: 10px;
+
+    border-top: 1px solid #ddd;
+
+}
+
+.public-review-good-button {
+    padding: 10px 18px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    background-color: transparent;
+
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.good-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.ok-hand-outline,
+.ok-hand-solid {
+    width: 24px;
+    height: 24px;
+}
+
+/* Normal state */
+
+.ok-hand-outline {
+    display: block;
+}
+
+.ok-hand-solid {
+    display: none;
+}
+
+/* Clicked state */
+
+.public-review-good-button.selected .ok-hand-outline {
+    display: none;
+}
+
+.public-review-good-button.selected .ok-hand-solid {
+    display: block;
+
+    filter:
+        brightness(0)
+        saturate(100%)
+        invert(16%)
+        sepia(99%)
+        saturate(7404%)
+        hue-rotate(359deg)
+        brightness(96%)
+        contrast(117%);
+}

@@ -136,20 +136,57 @@ function showPublicStories(stories) {
 
         const publicReviewCard = document.createElement("div");
         publicReviewCard.classList.add("public-review-card");
+
         const publicReviewGoodOne = document.createElement("div");
         publicReviewGoodOne.classList.add("public-review-good-one");
+        //publicReviewGoodOne.textContent = "Good One: " + story.goodOneCount;
+        publicReviewCard.appendChild(publicReviewGoodOne);
+
+        const publicReviewGoodButton = document.createElement("button");
+        publicReviewGoodButton.classList.add("public-review-good-button");
+const goodIcon = document.createElement("span");
+
+goodIcon.classList.add("good-icon");
+
+goodIcon.innerHTML = `
+    <img
+        class="ok-hand-outline"
+        src="assets/ok-payment-svgrepo-com.svg"
+        alt="Good"
+    >
+
+    <img
+        class="ok-hand-solid"
+        src="assets/ok-payment-svgrepo-com.svg"
+        alt="Good"
+    >
+`;
+
+publicReviewGoodButton.appendChild(goodIcon);
+
+publicReviewGoodButton.addEventListener("click", function () {
+    publicReviewGoodButton.classList.toggle("selected");
+});
+
+        //const goodButtonText = document.createElement("span");
+        //goodButtonText.classList.add("good-button-text");
+        //goodButtonText.textContent = " ";
+        //publicReviewGoodButton.appendChild(goodButtonText);
+        
+
+        publicReviewGoodOne.appendChild(publicReviewGoodButton);
+
         const publicReviewComments = document.createElement("div");
         publicReviewComments.classList.add("public-review-comments");
-        publicReviewGoodOne.textContent = "Good One: " + story.goodOneCount;
         publicReviewComments.textContent = "Comments: " + story.commentCount;
-        publicReviewCard.appendChild(publicReviewGoodOne);
         publicReviewCard.appendChild(publicReviewComments);
 
-        storyCard.appendChild(publicReviewCard);
+        
         storyCard.appendChild(writerName);
         storyCard.appendChild(storyTitle);
         storyCard.appendChild(preview);
         storyCard.appendChild(readMoreButton);
+        storyCard.appendChild(publicReviewCard);
         
         publicStoryContainer.appendChild(storyCard);
     
