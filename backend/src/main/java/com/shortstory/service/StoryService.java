@@ -1,5 +1,7 @@
 package com.shortstory.service;
 
+import com.shortstory.dto.UserCommentRequest;
+import com.shortstory.dto.UserCommentResponse;
 import com.shortstory.model.Story;
 import com.shortstory.model.StorySummaryResponse;
 import com.shortstory.repository.StoryRepository;
@@ -42,4 +44,14 @@ public class StoryService {
     public Story getStory(long storyId,long userId){
         return storyRepository.getStory(storyId,userId);
     }
+
+    public UserCommentResponse addComment(long storyId, long userId,UserCommentRequest userCommentRequest){return storyRepository.addComment(storyId, userId, userCommentRequest);}
+
+    public long addGoodReview(long storyId,long userId){return storyRepository.addGoodReview(storyId,userId);}
+
+    public boolean hasGoodReviewedStory(long storyId, long userId){
+        boolean goodReviewAdded = storyRepository.hasUserLikedStory(storyId, userId);
+        return goodReviewAdded;
+    }
+    public List<UserCommentResponse> getComments(long storyId, int page, int size){return storyRepository.getComments(storyId,page,size);}
 }

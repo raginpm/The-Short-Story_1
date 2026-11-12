@@ -220,7 +220,7 @@ textarea {
 
 }
 
-.public-review-good-button {
+.public-review-good-button,.public-review-comment-button {
     padding: 10px 18px;
 
     border: 1px solid #cccccc;
@@ -232,25 +232,27 @@ textarea {
     cursor: pointer;
 }
 
-.good-icon {
+.good-icon,.comment-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 }
 
 .ok-hand-outline,
-.ok-hand-solid {
+.ok-hand-solid,
+.comment-outline,
+.comment-solid {
     width: 24px;
     height: 24px;
 }
 
 /* Normal state */
 
-.ok-hand-outline {
+.ok-hand-outline, .comment-outline {
     display: block;
 }
 
-.ok-hand-solid {
+.ok-hand-solid, .comment-solid {
     display: none;
 }
 
@@ -272,4 +274,94 @@ textarea {
         hue-rotate(359deg)
         brightness(96%)
         contrast(117%);
+}
+
+/* -----------------------------Comment section----------------------------*/
+.user-comment-section {
+    margin-top: 12px;
+    padding-top: 12px;
+
+    border-top: 1px solid #e5e5e5;
+}
+
+.user-comment-view-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.user-comment-view {
+    padding: 10px 12px;
+
+    background-color: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+}
+
+.comment-username {
+    display: block;
+
+    font-size: 14px;
+    font-weight: 600;
+
+    margin-bottom: 4px;
+}
+
+.comment-content {
+    margin: 0;
+
+    font-size: 14px;
+    line-height: 1.5;
+
+    word-wrap: break-word;
+}
+
+.user-comment-adding-section {
+    display: flex;
+    gap: 8px;
+
+    align-items: flex-end;
+
+    margin-top: 10px;
+}
+
+.comment-input {
+    flex: 1;
+
+    min-height: 38px;
+    max-height: 100px;
+
+    padding: 8px 10px;
+
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+
+    resize: vertical;
+
+    font-size: 14px;
+    font-family: inherit;
+
+    box-sizing: border-box;
+}
+
+.comment-input:focus {
+    outline: none;
+    border-color: #888888;
+}
+
+.comment-post-button {
+    padding: 9px 14px;
+
+    border: none;
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+} 
+.user-comment-view-section {
+    max-height: 300px;
+    overflow-y: auto;
 }

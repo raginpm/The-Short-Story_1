@@ -1,5 +1,7 @@
 package com.shortstory.repository;
 
+import com.shortstory.dto.UserCommentRequest;
+import com.shortstory.dto.UserCommentResponse;
 import com.shortstory.model.Story;
 import com.shortstory.model.StorySummaryResponse;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -193,6 +195,99 @@ public class StoryRepository {
                 size,
                 offset
         );
+    }
+
+    public UserCommentResponse addComment(long storyId, long userId,UserCommentRequest userCommentRequest){
+        String sql = "INSERT INTO story_comment (story_id, user_id, content) VALUES (?,?,?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement preparedStatement = con.prepareStatement(
+                        sql,Statement.RETURN_GENERATED_KEYS
+                );
+                preparedStatement.setLong(1,storyId);
+                preparedStatement.setLong(2,userId);
+                preparedStatement.setString(3,userCommentRequest.getContent());
+                return preparedStatement;
+            }
+        },keyHolder);
+        Number key = keyHolder.getKey();
+        String username = getUsername(userId);
+        if (key == null) {
+            throw new IllegalStateException("Failed to retrieve generated story ID");
+        }
+        return new UserCommentResponse(userId,username,userCommentRequest.getContent());
+    }
+
+    public String getUsername(long userId) {
+
+        String sql =
+                "SELECT username " +
+                        "FROM users " +
+                        "WHERE user_id = ?";
+
+        return jdbcTemplate.queryForObject(
+                sql,
+                String.class,
+                userId
+        );
+    }
+
+    public List<UserCommentResponse> getComments(long storyId,int page, int size){
+
+        int offset = page*size;
+        String sql = """
+                SELECT  sc.`user_id`, u.`username`, sc.`content`
+                FROM story_comment sc  JOIN users u ON sc.`user_id` = u.`user_id`  
+                WHERE  sc.`story_id` = ? ORDER BY sc.`comment_id` DESC LIMIT ? OFFSET ?
+                """;
+        return jdbcTemplate.query(sql,(resultSet,rowNum)->
+                new UserCommentResponse(
+                        resultSet.getLong("user_id"),
+                        resultSet.getString("username"),
+                        resultSet.getString("content")
+                ),storyId,size,offset);
+    }
+
+    public long addGoodReview(long storyId,long userId){
+        String sql = "INSERT INTO story_good_review (story_id,user_id) VALUES (?,?)";
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+        jdbcTemplate.update(new PreparedStatementCreator() {
+            @Override
+            public PreparedStatement createPreparedStatement(Connection con) throws SQLException {
+                PreparedStatement preparedStatement = con.prepareStatement(
+                        sql,Statement.RETURN_GENERATED_KEYS
+                );
+                preparedStatement.setLong(1,storyId);
+                preparedStatement.setLong(2,userId);
+                return preparedStatement;
+            }
+        },keyHolder);
+        Number key = keyHolder.getKey();
+        if (key == null) {
+            throw new IllegalStateException("Failed to retrieve generated story ID");
+        }
+        return key.longValue();
+    }
+
+    public boolean hasUserLikedStory(long storyId,long userId) {
+
+        String sql =
+                "SELECT COUNT(*) " +
+                        "FROM story_good_review " +
+                        "WHERE user_id = ? " +
+                        "AND story_id = ?";
+
+        Integer count =
+                jdbcTemplate.queryForObject(
+                        sql,
+                        Integer.class,
+                        userId,
+                        storyId
+                );
+
+        return count != null && count > 0;
     }
 }
 

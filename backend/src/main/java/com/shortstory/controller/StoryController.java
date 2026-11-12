@@ -1,6 +1,9 @@
 package com.shortstory.controller;
 
 import com.shortstory.dto.StoryResponse;
+import com.shortstory.dto.UserCommentRequest;
+import com.shortstory.dto.UserCommentResponse;
+import com.shortstory.dto.UserGoodReviewResponse;
 import com.shortstory.model.Story;
 import com.shortstory.model.StorySummaryResponse;
 import com.shortstory.service.JwtService;
@@ -36,6 +39,60 @@ public class StoryController {
         long storyId = storyService.saveStory(story);
         StoryResponse response = new StoryResponse(storyId);
         return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/{storyId}/comment")
+    public ResponseEntity<UserCommentResponse> addComment(@PathVariable long storyId,
+                                                          @RequestHeader("Authorization") String authorizationHeader,
+                                                          @RequestBody UserCommentRequest userCommentRequest){
+
+        Long userId = getUserIdFromAuthorizationHeader(authorizationHeader);
+        if(userId==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        UserCommentResponse response = storyService.addComment(storyId,userId,userCommentRequest);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PostMapping("/{storyId}/good-review")
+    public ResponseEntity<UserGoodReviewResponse> addGoodReview(@PathVariable long storyId,
+                                                          @RequestHeader("Authorization") String authorizationHeader){
+
+        Long userId = getUserIdFromAuthorizationHeader(authorizationHeader);
+        if(userId==null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        long goodReviewId = storyService.addGoodReview(storyId,userId);
+        UserGoodReviewResponse response = new UserGoodReviewResponse(goodReviewId,storyId,userId);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/{storyId}/good-review")
+    public ResponseEntity<Boolean> hasGoodReviewed(@PathVariable long storyId,
+                                                   @RequestHeader("Authorization") String authorizationHeader){
+
+        Long userId = getUserIdFromAuthorizationHeader(authorizationHeader);
+        if(userId == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        boolean hasReviewed = storyService.hasGoodReviewedStory(storyId,userId);
+        return ResponseEntity.status(HttpStatus.OK).body(hasReviewed);
+    }
+    
+    @GetMapping("/{storyId}/comments")
+    public ResponseEntity<List<UserCommentResponse>> getComments(@PathVariable long storyId,
+                                                                 @RequestParam(defaultValue = "0") int page,
+                                                                 @RequestParam(defaultValue = "5") int size,
+                                                                 @RequestHeader("Authorization") String authorizationHeader){
+        Long userId = getUserIdFromAuthorizationHeader(authorizationHeader);
+        if(userId == null){
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
+        List<UserCommentResponse> comments = storyService.getComments(storyId,page,size);
+        if(comments == null){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(comments);
     }
 
     @PutMapping("/{id}")
